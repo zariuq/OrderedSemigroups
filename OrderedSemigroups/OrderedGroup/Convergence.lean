@@ -16,7 +16,7 @@ lemma arch_nat {e C : ℝ} (C_pos : C > 0) (e_pos : e > 0) : ∃n : ℕ+, 1 / n 
   obtain ⟨n, hn⟩ := exists_nat_one_div_lt eC_pos
   use ⟨n + 1, by omega⟩
   simp only [PNat.mk_coe, Nat.cast_add, Nat.cast_one, one_div]
-  field_simp
+  field_simp at ⊢ hn
   exact hn
 
 -- Exercise 3.1.5 https://arxiv.org/pdf/1408.5805

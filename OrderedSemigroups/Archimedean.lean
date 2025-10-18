@@ -238,14 +238,14 @@ theorem non_archimedean_anomalous_pair (non_arch : ¬is_archimedean (α := α)) 
   <;> try contradiction
   · rcases le_total (a*b) (b*a) with h | h
     <;> use b, (a*b)
-    · exact pos_not_arch_anomalous_pair pos_a pos_b hab h
-    · exact pos_not_arch_anomalous_pair' pos_a pos_b hab h
+    · exact pos_not_arch_anomalous_pair pos_a pos_b (by simp [hab]) h
+    · exact pos_not_arch_anomalous_pair' pos_a pos_b (by simp [hab]) h
   · exact (pos_neg_same_sign_false pos_a neg_b same_sign_ab).elim
   · exact (pos_neg_same_sign_false pos_b neg_a (same_sign_symm same_sign_ab)).elim
   · rcases le_total (a*b) (b*a) with h | h
     <;> use b, (a*b)
-    · exact neg_not_archimedean_anomalous_pair neg_a neg_b hab h
-    · exact neg_not_archimedean_anomalous_pair' neg_a neg_b hab h
+    · exact neg_not_archimedean_anomalous_pair neg_a neg_b (by simp [hab]) h
+    · exact neg_not_archimedean_anomalous_pair' neg_a neg_b (by simp [hab]) h
 
 /-- If `a` and `b` are positive and `a * b < b * a`, then `a*b` and `b*a` form an anomalous pair. -/
 theorem pos_not_comm_anomalous_pair {a b : α} (pos_a : is_positive a) (pos_b : is_positive b)
