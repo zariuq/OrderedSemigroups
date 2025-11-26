@@ -29,11 +29,11 @@ variable {α : Type u} [Group α] [LinearOrder α] [IsLeftOrderedSemigroup α]
   (f : α) [arch : Fact (archimedean_group α)] [f_pos : Fact (1 < f)]
 
 instance : IsRightOrderedSemigroup α where
-  mul_le_mul_right := by exact fun a b a_1 c ↦ left_arch_ordered arch.elim a b a_1 c
+  mul_le_mul_left := by exact fun a b a_1 c ↦ left_arch_ordered arch.elim a b a_1 c
 
 instance : IsOrderedSemigroup α where
-  mul_le_mul_left := IsLeftOrderedSemigroup.mul_le_mul_left
-  mul_le_mul_right := IsRightOrderedSemigroup.mul_le_mul_right
+  mul_le_mul_right := IsLeftOrderedSemigroup.mul_le_mul_right
+  mul_le_mul_left := IsRightOrderedSemigroup.mul_le_mul_left
 
 theorem approximate (g : α) (p : ℕ):
   ∃(q : ℤ), f^q ≤ g^p ∧ g^p < f^(q+1) := by
@@ -227,7 +227,7 @@ theorem φ'_hom (a b : α) : φ' f (a * b) = φ' f a + φ' f b := by
   have h2 : φ' f (a*b) ≤ φ' f a + φ' f b := by
     have : Filter.Tendsto (fun x : ℕ => 1 / (x : ℝ)) Filter.atTop (nhds 0) := by
       simp only [one_div]
-      exact tendsto_inverse_atTop_nhds_zero_nat
+      exact tendsto_inv_atTop_nhds_zero_nat
     have convergence : Filter.Tendsto (fun p ↦ ((q f a p) + (q f b p)) / (p : ℝ) + 1 / (p : ℝ)) Filter.atTop (nhds (φ' f a + φ' f b + 0)) := by
         apply Filter.Tendsto.add
         <;> trivial
@@ -278,7 +278,7 @@ theorem f_maps_one_φ : (φ f) f = (1 : ℝ) := by
   have p_le (p : ℕ) : (p : ℤ) ≤ q f f p := q_max_lt f f p (t := p) (by simp)
   have p_ge (p : ℕ) : q f f p ≤ (p : ℤ) := by
     have one_lt_f := f_pos.out
-    have lt : 1*f^p < f*f^p := mul_lt_mul_right' one_lt_f (f ^ p)
+    have lt : 1*f^p < f*f^p := mul_lt_mul_left one_lt_f (f ^ p)
     simp only [one_mul] at lt
     have : f * f^p = f^(p+1) := (pow_succ' f p).symm
     rw [this] at lt

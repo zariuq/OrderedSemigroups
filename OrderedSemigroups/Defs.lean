@@ -11,18 +11,18 @@ This file defines ordered semigroups and provides some basic instances.
 variable {α : Type*}
 
 class IsLeftOrderedSemigroup (α : Type*) [Semigroup α] [PartialOrder α] where
-  mul_le_mul_left : ∀ a b : α, a ≤ b → ∀ c : α, c * a ≤ c * b
+  mul_le_mul_right (a b : α) :a ≤ b → ∀ c : α, c * a ≤ c * b
 
 instance [Semigroup α] [PartialOrder α] [IsLeftOrderedSemigroup α] :
     MulLeftMono α where
-  elim a b c bc := IsLeftOrderedSemigroup.mul_le_mul_left b c bc a
+  elim a b c bc := IsLeftOrderedSemigroup.mul_le_mul_right b c bc a
 
 class IsRightOrderedSemigroup (α : Type*) [Semigroup α] [PartialOrder α] where
-  mul_le_mul_right : ∀ a b : α, a ≤ b → ∀ c : α, a * c ≤ b * c
+  mul_le_mul_left (a b : α) : a ≤ b → ∀ c : α, a * c ≤ b * c
 
 instance [Semigroup α] [PartialOrder α] [IsRightOrderedSemigroup α] :
     MulRightMono α where
-  elim a b c bc := IsRightOrderedSemigroup.mul_le_mul_right b c bc a
+  elim a b c bc := IsRightOrderedSemigroup.mul_le_mul_left b c bc a
 
 class IsOrderedSemigroup (α : Type*) [Semigroup α] [PartialOrder α] extends
     IsLeftOrderedSemigroup α, IsRightOrderedSemigroup α

@@ -95,10 +95,10 @@ instance : MulLeftMono (WithOne α) where
     <;> try simpa
     · exact not_neg_right (not_neg_iff.mpr y_le_z) x
     · exact not_pos_right (not_pos_right_not_pos y_le_z) x
-    · exact IsLeftOrderedSemigroup.mul_le_mul_left y z y_le_z x
+    · exact IsLeftOrderedSemigroup.mul_le_mul_right y z y_le_z x
 
 instance : IsOrderedMonoid (WithOne α) where
-  mul_le_mul_left _ _ a b := mul_le_mul_left' a b
+  mul_le_mul_left _ _ a b := mul_le_mul_left a b
 
 noncomputable instance withOne_linearOrder : LinearOrder (WithOne α) where
   le_total := by
@@ -123,7 +123,7 @@ instance withOne_orderedCancelMonoid : IsOrderedCancelMonoid (WithOne α) where
     · exact IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_left x y z xy_le_xz
 
 instance : IsLeftOrderedSemigroup (WithOne α) where
-  mul_le_mul_left _ _ a b := mul_le_mul_left' a b
+  mul_le_mul_right _ _ a b := mul_le_mul_right a b
 
 variable [Pow α ℕ+] [PNatPowAssoc α]
   [Pow (WithOne α) ℕ+] [PNatPowAssoc (WithOne α)]

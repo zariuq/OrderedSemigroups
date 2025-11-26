@@ -104,7 +104,7 @@ theorem pos_arch {x y : α} (pos_x : 1 < x) (pos_y : 1 < y) :
     order
 
 theorem pos_lt_exp_lt {f : α} (f_pos : 1 < f) {a b : ℤ} (f_lt : f^a < f^b) : a < b := by
-  have swap : (f^a)⁻¹ * f^a < (f^a)⁻¹ * f^b  := mul_lt_mul_left' f_lt (f ^ a)⁻¹
+  have swap : (f^a)⁻¹ * f^a < (f^a)⁻¹ * f^b  := mul_lt_mul_right f_lt (f ^ a)⁻¹
   simp only [inv_mul_cancel] at swap
   have : (f^a)⁻¹ = f^(-a) := by exact Eq.symm (zpow_neg f a)
   have one_lt_prod : 1 < f^(-a) * f^b := lt_of_lt_of_eq swap (congrFun (congrArg HMul.hMul this) (f ^ b))
@@ -121,7 +121,7 @@ theorem pos_lt_exp_lt {f : α} (f_pos : 1 < f) {a b : ℤ} (f_lt : f^a < f^b) : 
   exact lt_neg_add_iff_lt.mp this
 
 instance : IsLeftOrderedSemigroup α where
-  mul_le_mul_left _ _ a b :=  mul_le_mul_left' a b
+  mul_le_mul_right _ _ a b := mul_le_mul_right a b
 
 instance PositiveCone (α : Type u) [Group α] [PartialOrder α]
     [IsLeftOrderedSemigroup α] : Subsemigroup α where
@@ -168,9 +168,9 @@ def pos_normal_ordered (pos_normal : normal_semigroup (PositiveCone α)) :
   -- Case `a < b`
   have := pos_normal (a⁻¹ * b) ainv_b_pos c⁻¹
   simp at this
-  have : c * 1 < c * (c⁻¹ * (a⁻¹ * b) * c) := mul_lt_mul_left' this c
+  have : c * 1 < c * (c⁻¹ * (a⁻¹ * b) * c) := mul_lt_mul_right this c
   simp [mul_one, ←mul_assoc] at this
-  have : a * c < a * (a⁻¹ * b * c) := mul_lt_mul_left' this a
+  have : a * c < a * (a⁻¹ * b * c) := mul_lt_mul_right this a
   simp [←mul_assoc] at this
   exact this.le
 
@@ -200,7 +200,7 @@ theorem pos_exp_lt_lt {f : α} (f_pos : 1 < f) {a b : ℤ} (a_lt_b : a < b) : f^
   have : 1 < f ^ (b - a) := pos_exp_pos_pos f_pos this
   have : 1 < f^(b + (-a)) := this
   rw [zpow_add] at this
-  have : 1*f^a < (f^b * f^(-a))*f^a := mul_lt_mul_right' this (f ^ a)
+  have : 1*f^a < (f^b * f^(-a))*f^a := mul_lt_mul_left this (f ^ a)
   simpa
 
 theorem pos_exp_le_le {f : α} (f_pos : 1 < f) {a b : ℤ} (a_le_b : a ≤ b) : f^a ≤ f^b := by
@@ -208,7 +208,7 @@ theorem pos_exp_le_le {f : α} (f_pos : 1 < f) {a b : ℤ} (a_le_b : a ≤ b) : 
   have : 1 ≤ f ^ (b - a) := nonneg_exp_pos_nonneg f_pos this
   have : 1 ≤ f^(b + (-a)) := this
   rw [zpow_add] at this
-  have : 1*f^a ≤ (f^b * f^(-a))*f^a := mul_le_mul_right' this (f ^ a)
+  have : 1*f^a ≤ (f^b * f^(-a))*f^a := mul_le_mul_left this (f ^ a)
   simpa
 
 end LinearOrderedGroup

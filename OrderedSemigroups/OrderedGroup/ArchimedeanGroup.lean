@@ -47,7 +47,7 @@ theorem pos_min_arch {x y : α} (arch : archimedean_group α) (pos_x : 1 < x)
     have n_pos : n > 0 := pos_arch pos_x pos_y n hn
     dsimp [P]
     use n.natAbs
-    rwa [Int.cast_natAbs, abs_of_pos n_pos]
+    rwa [Nat.cast_natAbs, abs_of_pos n_pos]
 
   -- P is a decidable predicate
   have : DecidablePred P := Classical.decPred P
@@ -72,11 +72,11 @@ theorem neg_case_left_arch_false {g h : α} (arch : archimedean_group α) (pos_g
   have pos_hinv : 1 < h⁻¹ := one_lt_inv_of_inv neg_h
   obtain ⟨z, gz_gt_hinv, z_maximum⟩ := pos_min_arch arch pos_g pos_hinv
   have hinv_lt : h⁻¹ < g⁻¹ * h⁻¹ := by
-    have : h⁻¹ * (h * g * h⁻¹) < h⁻¹ * 1 := mul_lt_mul_left' conj_lt_one (h⁻¹)
+    have : h⁻¹ * (h * g * h⁻¹) < h⁻¹ * 1 := mul_lt_mul_right conj_lt_one (h⁻¹)
     simp [mul_assoc] at this
-    have : g⁻¹ * (g * h⁻¹) < g⁻¹ * h⁻¹ := mul_lt_mul_left' this g⁻¹
+    have : g⁻¹ * (g * h⁻¹) < g⁻¹ * h⁻¹ := mul_lt_mul_right this g⁻¹
     simpa [mul_assoc]
-  have : g⁻¹ * h⁻¹ < g⁻¹ * g^z := mul_lt_mul_left' gz_gt_hinv g⁻¹
+  have : g⁻¹ * h⁻¹ < g⁻¹ * g^z := mul_lt_mul_right gz_gt_hinv g⁻¹
   have hinv_lt : h⁻¹ < g⁻¹ * g^z := by exact gt_trans this hinv_lt
   have : g^z = g * g^((-1) + z) := by
     have : g^z = g^(1 + ((-1) + z)) := by simp
@@ -135,7 +135,7 @@ theorem left_arch_ordered (arch : archimedean_group α) :
 
 def left_arch_ordered_group (arch : archimedean_group α) :
     IsRightOrderedSemigroup α where
-  mul_le_mul_right := by exact fun a b a_1 c ↦ left_arch_ordered arch a b a_1 c
+  mul_le_mul_left := by exact fun a b a_1 c ↦ left_arch_ordered arch a b a_1 c
 
 end LeftLinearOrderedGroup
 
