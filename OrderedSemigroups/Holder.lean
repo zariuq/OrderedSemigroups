@@ -1,4 +1,6 @@
-import OrderedSemigroups.SemigroupToGroup.SemigroupToGroup
+module
+
+public import OrderedSemigroups.SemigroupToGroup.SemigroupToGroup
 
 /-!
 # Holder's Theorem for Semigroups
@@ -7,6 +9,8 @@ This file containes the proof of Holder's theorem for semigroups and
 some variants of it.
 
 -/
+
+public section
 
 universe u
 variable {α : Type u}

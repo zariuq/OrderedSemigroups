@@ -1,7 +1,9 @@
-import OrderedSemigroups.Defs
-import Mathlib.Data.Set.Basic
-import Mathlib.Algebra.Group.Subsemigroup.Basic
-import OrderedSemigroups.Archimedean
+module
+
+public import OrderedSemigroups.Defs
+public import Mathlib.Data.Set.Basic
+public import Mathlib.Algebra.Group.Subsemigroup.Basic
+public import OrderedSemigroups.Archimedean
 
 /-!
 # Basic ordered group facts
@@ -9,6 +11,8 @@ import OrderedSemigroups.Archimedean
 This file proves some basic facts about ordered groups.
 
 -/
+
+public section
 
 universe u
 
@@ -149,6 +153,7 @@ theorem pos_neg_disjoint :
   · intro x_in_empty
     contradiction
 
+@[expose]
 def normal_semigroup {α : Type u} [Group α] (x : Subsemigroup α) :=
     ∀s : x, ∀g : α, g * s * g⁻¹ ∈ x
 

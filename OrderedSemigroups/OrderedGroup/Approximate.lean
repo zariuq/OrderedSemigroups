@@ -1,8 +1,10 @@
-import Mathlib.Algebra.Order.Ring.Star
-import Mathlib.Analysis.Normed.Field.Instances
-import Mathlib.Topology.Metrizable.CompletelyMetrizable
-import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
-import OrderedSemigroups.OrderedGroup.Convergence
+module
+
+public import Mathlib.Algebra.Order.Ring.Star
+public import Mathlib.Analysis.Normed.Field.Instances
+public import Mathlib.Topology.Metrizable.CompletelyMetrizable
+public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+public import OrderedSemigroups.OrderedGroup.Convergence
 
 /-!
 # Approximate
@@ -13,6 +15,8 @@ and approximating all the others with respect to it.
 Most of the content of Holder's theorem is proved here.
 
 -/
+
+public section
 
 /--
   Every nonempty set of integers that is bounded above has a maximum element.

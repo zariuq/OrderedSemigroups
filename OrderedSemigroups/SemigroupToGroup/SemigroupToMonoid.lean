@@ -1,5 +1,7 @@
-import Mathlib.Algebra.Order.Group.Basic
-import OrderedSemigroups.Archimedean
+module
+
+public import Mathlib.Algebra.Order.Group.Basic
+public import OrderedSemigroups.Archimedean
 
 /-!
 # Semigroup to Monoid
@@ -10,6 +12,8 @@ In particular, it shows that for every linear ordered cancel commutative semigro
 `WithOne α` is a linear ordered cancel commutative monoid that contains it.
 
 -/
+
+@[expose] public section
 
 universe u
 variable {α : Type u}

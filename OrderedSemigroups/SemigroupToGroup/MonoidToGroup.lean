@@ -1,10 +1,12 @@
-import Mathlib.Algebra.Group.Prod
-import Mathlib.Data.Setoid.Basic
-import Mathlib.Algebra.Group.Subgroup.Basic
-import Mathlib.Algebra.Order.Monoid.Basic
-import Mathlib.Algebra.Order.Group.Basic
-import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
-import Mathlib.GroupTheory.MonoidLocalization.Order
+module
+
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Data.Setoid.Basic
+public import Mathlib.Algebra.Group.Subgroup.Basic
+public import Mathlib.Algebra.Order.Monoid.Basic
+public import Mathlib.Algebra.Order.Group.Basic
+public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+public import Mathlib.GroupTheory.MonoidLocalization.Order
 
 /-!
 # Monoid to Group
@@ -13,6 +15,8 @@ Thie files proves that if a suitable monoid does not have anomalous pairs,
 then the smallest group containing it is Archimedean.
 
 -/
+
+public section
 
 universe u
 variable {α : Type u}

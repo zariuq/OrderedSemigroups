@@ -1,8 +1,10 @@
-import OrderedSemigroups.OrderedGroup.Basic
-import OrderedSemigroups.Defs
-import Mathlib.Data.Set.Basic
-import Mathlib.Algebra.Group.Subsemigroup.Basic
-import Mathlib.Tactic
+module
+
+public import OrderedSemigroups.OrderedGroup.Basic
+public import OrderedSemigroups.Defs
+public import Mathlib.Data.Set.Basic
+public import Mathlib.Algebra.Group.Subsemigroup.Basic
+public import Mathlib.Tactic
 
 /-!
 # Archimedean Groups
@@ -10,6 +12,8 @@ import Mathlib.Tactic
 This file defines and proves things about Archimedean groups.
 
 -/
+
+public section
 
 universe u
 
@@ -19,6 +23,7 @@ section LeftOrdered
 
 variable [Group α] [PartialOrder α] [IsLeftOrderedSemigroup α]
 
+@[expose]
 def archimedean_group (α : Type u) [Group α] [PartialOrder α]
   [IsLeftOrderedSemigroup α] := ∀(g h : α), g ≠ 1 → ∃z : ℤ, g^z > h
 

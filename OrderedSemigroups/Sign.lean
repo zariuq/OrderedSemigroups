@@ -1,6 +1,8 @@
-import OrderedSemigroups.Basic
-import Mathlib.Tactic.Order
-import OrderedSemigroups.PNat
+module
+
+public import OrderedSemigroups.Basic
+public import Mathlib.Tactic.Order
+public import OrderedSemigroups.PNat
 
 /-!
 # Sign of element in Ordered Semigroup
@@ -8,6 +10,8 @@ import OrderedSemigroups.PNat
 This file defines what it means for an element of an ordered semigroup
 to be positive, negative, or one. It also proves some basic facts about signs.
 -/
+
+@[expose] public section
 
 section LeftOrderedSemigroup
 variable [Semigroup α] [PartialOrder α]

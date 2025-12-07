@@ -1,5 +1,7 @@
-import Mathlib.Algebra.Order.Group.Basic
-import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
+module
+
+public import Mathlib.Algebra.Order.Group.Basic
+public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
 
 /-!
 # Ordered Semigroups
@@ -7,6 +9,8 @@ import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
 This file defines ordered semigroups and provides some basic instances.
 
 -/
+
+public section
 
 variable {α : Type*}
 

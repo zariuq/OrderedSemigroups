@@ -1,4 +1,6 @@
-import Mathlib.Analysis.Normed.Order.Lattice
+module
+
+public import Mathlib.Analysis.Normed.Order.Lattice
 
 /-!
 # Convergence of a particular sequence
@@ -8,6 +10,7 @@ This is used in the proof of Holder's theorem to show that the
 sequence of approximations do converge.
 
 -/
+public section
 
 open Filter
 

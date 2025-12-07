@@ -1,8 +1,10 @@
-import OrderedSemigroups.SemigroupToGroup.SemigroupToMonoid
-import OrderedSemigroups.SemigroupToGroup.MonoidToGroup
-import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
-import OrderedSemigroups.OrderedGroup.Holder
-import OrderedSemigroups.SemigroupToGroup.Basic
+module
+
+public import OrderedSemigroups.SemigroupToGroup.SemigroupToMonoid
+public import OrderedSemigroups.SemigroupToGroup.MonoidToGroup
+public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+public import OrderedSemigroups.OrderedGroup.Holder
+public import OrderedSemigroups.SemigroupToGroup.Basic
 
 /-!
 # Semigroup to Group
@@ -12,12 +14,15 @@ there exists a larger Archimedean group containing `α`.
 
 -/
 
+public section
+
 universe u
 variable {α : Type u}
 section LinearOrderedCancelSemigroup
 variable [Semigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
   [Pow α ℕ+] [PNatPowAssoc α]
 
+@[expose]
 def not_anom_to_comm (not_anomalous : ¬has_anomalous_pair (α := α)) :
     CommSemigroup α where
   mul_comm a b := not_anomalous_pair_commutative not_anomalous a b

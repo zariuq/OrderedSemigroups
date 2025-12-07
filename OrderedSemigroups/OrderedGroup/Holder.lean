@@ -1,4 +1,10 @@
+module
+
 import OrderedSemigroups.OrderedGroup.Approximate
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Order.Defs.LinearOrder
+public import OrderedSemigroups.Defs
+public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
 
 /-!
 # Holder's Theorem for Groups
@@ -14,7 +20,7 @@ variable {α : Type u}
   Every left linear ordered group that is Archimedean
   is monoid order isomorphic to a subgroup of `ℝ`.
 -/
-theorem holders_theorem [Group α] [LinearOrder α] [IsLeftOrderedSemigroup α]
+public theorem holders_theorem [Group α] [LinearOrder α] [IsLeftOrderedSemigroup α]
     (arch : archimedean_group α) :
     ∃G : Subgroup (Multiplicative ℝ), Nonempty (α ≃*o G) := by
   by_cases h : ∃f : α, 1 < f

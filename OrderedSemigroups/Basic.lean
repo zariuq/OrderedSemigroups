@@ -1,5 +1,7 @@
-import Mathlib.Algebra.Group.PNatPowAssoc
-import OrderedSemigroups.Defs
+module
+
+public import Mathlib.Algebra.Group.PNatPowAssoc
+public import OrderedSemigroups.Defs
 
 /-!
 # Exponentiation Theorems
@@ -8,6 +10,8 @@ This file proves basic facts about exponentiation and how it interacts
 with the ordering on a semigroup.
 
 -/
+
+public section
 
 universe u
 

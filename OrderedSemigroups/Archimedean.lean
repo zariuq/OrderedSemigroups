@@ -1,5 +1,7 @@
-import OrderedSemigroups.Sign
-import Mathlib.Tactic
+module
+
+public import OrderedSemigroups.Sign
+public import Mathlib.Tactic
 
 /-!
 # Archimedean Ordered Semigroups and Anomalous Pairs
@@ -8,6 +10,8 @@ This file defines Archimedean ordered semigroups and anomalous pairs
 and proves theorems about how they interact.
 
 -/
+
+@[expose] public section
 
 universe u
 
@@ -51,10 +55,10 @@ theorem pos_anomalous_lt {a b : α} (anomalous : anomalous_pair a b) (pos : is_p
     trivial
   · simp at *
     calc
-      a < a * a              := by exact pos a
+      a < a * a              := pos a
       _ = a ^ (1 : ℕ+) * a ^ (1 : ℕ+) := by rw [ppow_one]
-      _ = a ^ (1 + (1 : ℕ+)) := by exact Eq.symm (ppow_add 1 1 a)
-      _ < b                  := by exact b_gt_ap1
+      _ = a ^ (1 + (1 : ℕ+)) := (ppow_add 1 1 a).symm
+      _ < b                  := b_gt_ap1
 
 theorem anomalous_not_one {a b : α} (anomalous : anomalous_pair a b) : ¬is_one a := by
   rcases anomalous 1 with ⟨a_lt_b, b_lt_ap1⟩ | ⟨a_gt_b, b_gt_ap1⟩
