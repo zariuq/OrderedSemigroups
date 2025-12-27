@@ -295,7 +295,7 @@ theorem f_maps_one_φ : (φ f) f = (1 : ℝ) := by
     use 1
     intro b one_le_b
     simp [this]
-    field_simp
+    grind
   have eventually_one : (fun p ↦ ((q f f p) : ℝ)/(p : ℝ)) =ᶠ[Filter.atTop] 1 := this
   have : Filter.Tendsto (fun p ↦ ((q f f p) : ℝ)/(p : ℝ)) Filter.atTop (nhds 1) := by
     apply Filter.Tendsto.congr' (f₁ := 1)

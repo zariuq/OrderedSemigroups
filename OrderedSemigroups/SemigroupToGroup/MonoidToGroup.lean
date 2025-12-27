@@ -33,7 +33,7 @@ abbrev over_one (α : Type*) [CommMonoid α] :=
   MonoidHom.mrange ((Localization.monoidOf (⊤ : Submonoid α)).toMonoidHom)
 
 abbrev over_one_map (α : Type*) [CommMonoid α] : α →* over_one α
-  := (Localization.monoidOf (⊤ : Submonoid α)).mrangeRestrict
+  := (Localization.monoidOf (⊤ : Submonoid α)).toMonoidHom.mrangeRestrict
 
 omit [Pow α ℕ+] [PNatPowAssoc α] in
 theorem over_one_map_inj : Function.Injective (over_one_map α) := by
@@ -45,7 +45,7 @@ theorem over_one_map_inj : Function.Injective (over_one_map α) := by
   trivial
 
 noncomputable def iso_over_one : α ≃*o (over_one α) where
-  toFun := (Localization.monoidOf (⊤ : Submonoid α)).mrangeRestrict
+  toFun := (Localization.monoidOf (⊤ : Submonoid α)).toMonoidHom.mrangeRestrict
   invFun x := x.prop.choose
   left_inv := by
     simp [Function.LeftInverse]
