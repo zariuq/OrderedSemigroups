@@ -185,7 +185,7 @@ theorem pos_not_arch_anomalous_pair {a b : α} (pos_a : is_positive a) (pos_b : 
   · calc
       (a * b) ^ n ≤ (b * a) ^ n := le_pow comm n
       _           ≤ b ^ n * a ^ n := comm_dist_le comm n
-      _           < b ^ n * b := mul_lt_mul_right (pos_not_archimedean_wrt_forall_lt pos_b not_arch n) (b ^ n)
+      _           < b ^ n * b := mul_lt_mul_left' (pos_not_archimedean_wrt_forall_lt pos_b not_arch n) (b ^ n)
       _           = b ^ (n + 1) := Eq.symm (ppow_succ n b)
 
 /-- If `a` and `b` are positive, `a` is not Archimedean with respect to `b`, and `b*a ≤ a*b`, then `b` and `a*b` form an anomalous pair. -/
@@ -200,7 +200,7 @@ theorem pos_not_arch_anomalous_pair' {a b : α} (pos_a : is_positive a) (pos_b :
       _     ≤ (a * b) ^ n := comm_swap_le comm n
   · calc
       (a * b) ^ n ≤ a ^ n * b ^ n := comm_dist_le comm n
-      _           < b * b ^ n := mul_lt_mul_left (pos_not_archimedean_wrt_forall_lt pos_b not_arch n) (b ^ n)
+      _           < b * b ^ n := mul_lt_mul_right' (pos_not_archimedean_wrt_forall_lt pos_b not_arch n) (b ^ n)
       _           = b ^ (n + 1) := Eq.symm (ppow_succ' n b)
 
 /-- If `a` and `b` are negative, `a` is not Archimedean with respect to `b`, and `a*b ≤ b*a`, then `b` and `a*b` form an anomalous pair. -/
@@ -215,7 +215,7 @@ theorem neg_not_archimedean_anomalous_pair {a b : α} (neg_a : is_negative a) (n
       _           < b ^ n := neg_right (neg_pow_neg neg_a n) (b ^ n)
   · calc
       (a * b) ^ n ≥ a ^ n * b ^ n := comm_factor_le comm n
-      _           > b * b ^ n := mul_lt_mul_left (neg_not_archimedean_wrt_forall_gt neg_b not_arch n ) (b ^ n)
+      _           > b * b ^ n := mul_lt_mul_right' (neg_not_archimedean_wrt_forall_gt neg_b not_arch n ) (b ^ n)
       _           = b ^ (n + 1) := Eq.symm (ppow_succ' n b)
 
 /-- If `a` and `b` are negative, `a` is not Archimedean with respect to `b`, and `b*a ≤ a*b`, then `b` and `a*b` form an anomalous pair. -/
@@ -228,7 +228,7 @@ theorem neg_not_archimedean_anomalous_pair' {a b : α} (neg_a : is_negative a) (
   · calc
       (a * b) ^ n ≥ (b * a) ^ n := comm_swap_le comm n
       _           ≥ b ^ n * a ^ n := comm_factor_le comm n
-      _           > b ^ n * b := mul_lt_mul_right (neg_not_archimedean_wrt_forall_gt neg_b not_arch n) (b ^ n)
+      _           > b ^ n * b := mul_lt_mul_left' (neg_not_archimedean_wrt_forall_gt neg_b not_arch n) (b ^ n)
       _           = b ^ (n + 1) := Eq.symm (ppow_succ n b)
 
 /-- If a linear ordered cancel semigroup is not Archimedean, then it has an anomalous pair. -/
@@ -258,7 +258,7 @@ theorem pos_not_comm_anomalous_pair {a b : α} (pos_a : is_positive a) (pos_b : 
     intro n
     calc
       (b * a) ^ n < (b * a) ^ n * b := pos_right pos_b ((b * a) ^ n)
-      _           < a * (b * a) ^ n * b := mul_lt_mul_left (pos_a ((b * a) ^ n)) b
+      _           < a * (b * a) ^ n * b := mul_lt_mul_right' (pos_a ((b * a) ^ n)) b
       _           = (a * b) ^ (n + 1) := Eq.symm split_first_and_last_factor_of_product
   left
   exact ⟨comm_swap_lt h n, this n⟩
@@ -271,7 +271,7 @@ theorem neg_not_comm_anomalous_pair {a b : α} (neg_a : is_negative a) (neg_b : 
     intro n
     calc
       (a * b) ^ n > (a * b) ^ n * a := neg_right neg_a ((a * b) ^ n)
-      _           > b * (a * b) ^ n * a := mul_lt_mul_left (neg_b ((a * b) ^ n)) a
+      _           > b * (a * b) ^ n * a := mul_lt_mul_right' (neg_b ((a * b) ^ n)) a
       _           = (b * a) ^ (n + 1) := Eq.symm split_first_and_last_factor_of_product
   right
   exact ⟨comm_swap_lt h n, this n⟩
@@ -312,7 +312,7 @@ theorem not_comm_once_comm {a b : α} (h : a * b < b * a) (comm : (b * a) * b = 
     a * b * a * b = a * ((b * a) * b) := by simp [mul_assoc]
     _             = a * (b * (b * a)) := by simp [←comm]
     _             = (a * b) * (b * a) := by simp [mul_assoc]
-    _             > (a * b) * (a * b) := by exact mul_lt_mul_right h (a * b)
+    _             > (a * b) * (a * b) := by exact mul_lt_mul_left' h (a * b)
     _             = a * b * a * b := by exact Eq.symm (mul_assoc (a * b) a b)
   order
 
@@ -324,7 +324,7 @@ theorem not_comm_once_comm' {a b : α} (h : b * a < a * b) (comm : (b * a) * b =
     a * b * a * b = a * ((b * a) * b) := by simp [mul_assoc]
     _             = a * (b * (b * a)) := by simp [←comm]
     _             = (a * b) * (b * a) := by simp [mul_assoc]
-    _             < (a * b) * (a * b) := by exact mul_lt_mul_right h (a * b)
+    _             < (a * b) * (a * b) := by exact mul_lt_mul_left' h (a * b)
     _             = a * b * a * b := by exact Eq.symm (mul_assoc (a * b) a b)
   order
 
@@ -336,7 +336,7 @@ theorem not_comm_once_comm'' {a b : α} (h : a * b < b * a) (comm : (b * a) * a 
     a * b * a * b = (a * (b * a)) * b := by simp [mul_assoc]
     _             = ((b * a) * a) * b := by simp [←comm]
     _             = (b * a) * (a * b) := by simp [mul_assoc]
-    _             > (a * b) * (a * b) := by exact mul_lt_mul_left h (a * b)
+    _             > (a * b) * (a * b) := by exact mul_lt_mul_right' h (a * b)
     _             = a * b * a * b := by exact Eq.symm (mul_assoc (a * b) a b)
   order
 
@@ -348,7 +348,7 @@ theorem not_comm_once_comm''' {a b : α} (h : b * a < a * b) (comm : (b * a) * a
     a * b * a * b = (a * (b * a)) * b := by simp [mul_assoc]
     _             = ((b * a) * a) * b := by simp [←comm]
     _             = (b * a) * (a * b) := by simp [mul_assoc]
-    _             < (a * b) * (a * b) := by exact mul_lt_mul_left h (a * b)
+    _             < (a * b) * (a * b) := by exact mul_lt_mul_right' h (a * b)
     _             = a * b * a * b := by exact Eq.symm (mul_assoc (a * b) a b)
   order
 
@@ -476,14 +476,14 @@ theorem large_differences_pos_lt_not_anomalous {a b : α} (differences : has_lar
       rcases le_total (a^m*c) (c*a^m) with hamc | hamc
       · calc
           a ^ (m * N + 1) = a ^ (m * N) * a := ppow_succ (m * N) a
-          _               ≤ a ^ (m * N) * (c^N) := (mul_lt_mul_right lt (a ^ (m * N))).le
+          _               ≤ a ^ (m * N) * (c^N) := (mul_lt_mul_left' lt (a ^ (m * N))).le
           _               = (a ^ m) ^ N * c ^ N := by rw [ppow_mul]
           _               ≤ (a ^ m * c) ^ N := comm_factor_le hamc N
           _               ≤ (b ^ m) ^ N := le_pow h N
           _               = b ^ (m * N) := Eq.symm (ppow_mul b m N)
       · calc
           a ^ (m * N + 1) = a * a ^ (m * N) := ppow_succ' (m * N) a
-          _               ≤ c ^ N * a ^ (m * N) := (mul_lt_mul_left lt (a ^ (m * N))).le
+          _               ≤ c ^ N * a ^ (m * N) := (mul_lt_mul_right' lt (a ^ (m * N))).le
           _               = c ^ N * (a ^ m) ^ N := by rw [ppow_mul]
           _               ≤ (c * a ^ m) ^ N := comm_factor_le hamc N
           _               ≤ (a ^ m * c) ^ N := comm_swap_le hamc N
@@ -509,7 +509,7 @@ theorem large_differences_neg_lt_anomalous {a b : α} (differences : has_large_d
       rcases le_total (a^m*c) (c*a^m) with hamc | hamc
       · calc
           a ^ (m * N + 1) = a * a ^ (m * N) := ppow_succ' (m * N) a
-          _               ≥ c ^ N * a ^ (m * N) := (mul_lt_mul_left lt (a ^ (m * N))).le
+          _               ≥ c ^ N * a ^ (m * N) := (mul_lt_mul_right' lt (a ^ (m * N))).le
           _               = c ^ N * (a ^ m) ^ N := by rw [ppow_mul]
           _               ≥ (c * a ^ m) ^ N := comm_dist_le hamc N
           _               ≥ (a ^ m * c) ^ N := comm_swap_le hamc N
@@ -517,7 +517,7 @@ theorem large_differences_neg_lt_anomalous {a b : α} (differences : has_large_d
           _               = b ^ (m * N) := Eq.symm (ppow_mul b m N)
       · calc
         a ^ (m * N + 1) = a ^ (m * N) * a := ppow_succ (m * N) a
-        _               ≥ a ^ (m * N) * (c^N) := (mul_lt_mul_right lt (a ^ (m * N))).le
+        _               ≥ a ^ (m * N) * (c^N) := (mul_lt_mul_left' lt (a ^ (m * N))).le
         _               = (a ^ m) ^ N * c ^ N := by rw [ppow_mul]
         _               ≥ (a ^ m * c) ^ N := comm_dist_le hamc N
         _               ≥ (b ^ m) ^ N := le_pow h N
@@ -616,7 +616,7 @@ theorem same_sign_differences_and_arch_to_large_difference
       exact z_x_same
     · use 1
       simp
-      have : y * z < x * z := mul_lt_mul_left y_lt_x z
+      have : y * z < x * z := mul_lt_mul_right' y_lt_x z
       rw [hz] at this
       order
 
@@ -637,7 +637,7 @@ theorem pos_large_elements (not_anomalous : ¬has_anomalous_pair (α := α)) (po
         calc z^(n+3)
         _ = z^(n+2)*z := ppow_succ (n + 2) z
         _ > z^(n+2) := pos_right hz (z ^ (n + 2))
-      have  xzn3_lt_xzn3 : x*z^(n+2) < x*z^(n+3) := mul_lt_mul_right zn2_lt_zn3 x
+      have  xzn3_lt_xzn3 : x*z^(n+2) < x*z^(n+3) := mul_lt_mul_left' zn2_lt_zn3 x
       have : is_positive (z^(n+3)) := pos_pow_pos hz (n + 3)
       have zn3_not_pos := all_pos_small (z^(n+3)) this
       rw [not_pos_or] at zn3_not_pos
@@ -687,7 +687,7 @@ theorem neg_large_elements (not_anomalous : ¬has_anomalous_pair (α := α)) (ne
         calc z^(n+3)
         _ = z^(n+2)*z := ppow_succ (n + 2) z
         _ < z^(n+2) := neg_right hz (z ^ (n + 2))
-      have  xzn3_lt_xzn3 : x*z^(n+2) > x*z^(n+3) := mul_lt_mul_right zn2_gt_zn3 x
+      have  xzn3_lt_xzn3 : x*z^(n+2) > x*z^(n+3) := mul_lt_mul_left' zn2_gt_zn3 x
       have : is_negative (z^(n+3)) := neg_pow_neg hz (n + 3)
       have zn3_not_neg := all_neg_small (z^(n+3)) this
       rw [not_neg_or] at zn3_not_neg

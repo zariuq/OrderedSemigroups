@@ -188,10 +188,10 @@ section LinearOrderedCancelSemigroup
 variable [Semigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
 
 theorem gt_one_pos {a b : α} (one : is_one a) (h : a < b) : is_positive b :=
-  fun x ↦ lt_of_eq_of_lt (id (Eq.symm (one x))) (mul_lt_mul_left h x)
+  fun x ↦ lt_of_eq_of_lt (id (Eq.symm (one x))) (mul_lt_mul_right' h x)
 
 theorem lt_one_neg {a b : α} (one : is_one a) (h : b < a) : is_negative b :=
-  fun x ↦ lt_of_lt_of_eq (mul_lt_mul_left h x) (one x)
+  fun x ↦ lt_of_lt_of_eq (mul_lt_mul_right' h x) (one x)
 
 theorem neg_lt_pos {a b : α} (neg : is_negative a) (pos : is_positive b) : a < b :=
   lt_of_mul_lt_mul_right' (gt_trans (pos b) (neg b))

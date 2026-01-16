@@ -22,7 +22,7 @@ section LinearOrderedCommGroup
 variable [CommGroup α] [LinearOrder α] [IsOrderedMonoid α]
 
 instance : IsLeftOrderedSemigroup α where
-    __ := inferInstanceAs (IsOrderedMonoid α)
+    mul_le_mul_left' a b hab c := IsOrderedMonoid.mul_le_mul_left a b hab c
 
 omit [LinearOrder α] [IsOrderedMonoid α] in
 theorem is_one_iff_one (a : α) : is_one a ↔ a = 1 := by

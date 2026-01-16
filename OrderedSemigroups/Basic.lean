@@ -84,9 +84,9 @@ theorem le_pow {a b : α} (h : a ≤ b) (n : ℕ+) : a^n ≤ b^n := by
 
 omit [Pow α ℕ+] [PNatPowAssoc α] in
 theorem middle_swap {a b c d : α} (h : a ≤ b) : c * a * d ≤ c * b * d := by
-  have : a * d ≤ b * d := IsRightOrderedSemigroup.mul_le_mul_left a b h d
+  have : a * d ≤ b * d := IsRightOrderedSemigroup.mul_le_mul_right' a b h d
   have : c * (a * d) ≤ c * (b * d) :=
-    IsLeftOrderedSemigroup.mul_le_mul_right (a*d) (b*d) this c
+    IsLeftOrderedSemigroup.mul_le_mul_left' (a*d) (b*d) this c
   simp only [mul_assoc]
   trivial
 

@@ -49,6 +49,25 @@ section LinearOrderedCancelCommSemigroup
 variable [CommSemigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
   [not_one : Fact (∀x : α, ¬is_one x)]
 
+-- Left multiplication versions of not_pos/not_neg lemmas using commutativity
+theorem not_pos_left {a : α} (not_pos : ¬is_positive a) : ∀x : α, a * x ≤ x := by
+  intro x
+  rw [mul_comm]
+  exact not_pos_right not_pos x
+
+theorem not_neg_left {a : α} (not_neg : ¬is_negative a) : ∀x : α, a * x ≥ x := by
+  intro x
+  rw [mul_comm]
+  exact not_neg_right not_neg x
+
+theorem not_pos_left_not_pos {a b : α} (h : a * b ≤ b) : ¬is_positive a := by
+  rw [mul_comm] at h
+  exact not_pos_right_not_pos h
+
+theorem not_neg_left_not_neg {a b : α} (h : a * b ≥ b) : ¬is_negative a := by
+  rw [mul_comm] at h
+  exact not_neg_right_not_neg h
+
 instance : PartialOrder (WithOne α) where
   le := by
     intro x y
@@ -98,10 +117,41 @@ instance : MulLeftMono (WithOne α) where
     <;> try simpa
     · exact not_neg_right (not_neg_iff.mpr y_le_z) x
     · exact not_pos_right (not_pos_right_not_pos y_le_z) x
-    · exact IsLeftOrderedSemigroup.mul_le_mul_right y z y_le_z x
+    · exact IsLeftOrderedSemigroup.mul_le_mul_left' y z y_le_z x
+
+instance : MulRightMono (WithOne α) where
+  elim := by
+    simp only [Covariant]
+    intro x y z y_le_z
+    induction' x with x
+    <;> induction' y with y
+    <;> induction' z with z
+    <;> simp only [Function.swap]
+    <;> try simp
+    <;> try simpa
+    · exact not_neg_left (not_neg_iff.mpr y_le_z) x
+    · exact not_pos_left (not_pos_left_not_pos y_le_z) x
+    · exact IsRightOrderedSemigroup.mul_le_mul_right' y z y_le_z x
 
 instance : IsOrderedMonoid (WithOne α) where
-  mul_le_mul_left _ _ a b := mul_le_mul_left a b
+  mul_le_mul_left a b hab c := by
+    induction' c with c
+    <;> induction' a with a
+    <;> induction' b with b
+    <;> try simp
+    <;> try simpa
+    · exact not_neg_right (not_neg_iff.mpr hab) c
+    · exact not_pos_right (not_pos_right_not_pos hab) c
+    · exact IsLeftOrderedSemigroup.mul_le_mul_left' a b hab c
+  mul_le_mul_right a b hab c := by
+    induction' c with c
+    <;> induction' a with a
+    <;> induction' b with b
+    <;> try simp
+    <;> try simpa
+    · exact not_neg_left (not_neg_iff.mpr hab) c
+    · exact not_pos_left (not_pos_left_not_pos hab) c
+    · exact IsRightOrderedSemigroup.mul_le_mul_right' a b hab c
 
 noncomputable instance withOne_linearOrder : LinearOrder (WithOne α) where
   le_total := by
@@ -123,10 +173,10 @@ instance withOne_orderedCancelMonoid : IsOrderedCancelMonoid (WithOne α) where
     <;> first | exact xy_le_xz | try order
     · exact not_neg_iff.1 (not_neg_right_not_neg xy_le_xz)
     · exact not_pos_iff.1 (not_pos_right_not_pos xy_le_xz)
-    · exact IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_left x y z xy_le_xz
+    · exact IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right' x y z xy_le_xz
 
 instance : IsLeftOrderedSemigroup (WithOne α) where
-  mul_le_mul_right _ _ a b := mul_le_mul_right a b
+  mul_le_mul_left' a b hab c := IsOrderedMonoid.mul_le_mul_left a b hab c
 
 variable [Pow α ℕ+] [PNatPowAssoc α]
   [Pow (WithOne α) ℕ+] [PNatPowAssoc (WithOne α)]
@@ -190,7 +240,15 @@ noncomputable instance has_one_commMonoid : CommMonoid α where
   mul_one a := one_right has_one.out.choose_spec a
 
 instance has_one_orderedCancelMonoid : IsOrderedCancelMonoid α where
-  mul_le_mul_left := by simp
-  le_of_mul_le_mul_left := by simp
+  mul_le_mul_left a b hab c := IsLeftOrderedSemigroup.mul_le_mul_left' a b hab c
+  mul_le_mul_right a b hab c := IsRightOrderedSemigroup.mul_le_mul_right' a b hab c
+  le_of_mul_le_mul_left a b c habc := by
+    -- habc : a * b ≤ a * c, want: b ≤ c
+    -- IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right' : ∀ a b c, a * b ≤ a * c → b ≤ c
+    exact IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right' a b c habc
+  le_of_mul_le_mul_right a b c habc := by
+    -- habc : b * a ≤ c * a, want: b ≤ c
+    -- IsRightOrderedCancelSemigroup.le_of_mul_le_mul_left' : ∀ a b c, b * a ≤ c * a → b ≤ c
+    exact IsRightOrderedCancelSemigroup.le_of_mul_le_mul_left' a b c habc
 
 end LinearOrderedCancelCommSemigroup

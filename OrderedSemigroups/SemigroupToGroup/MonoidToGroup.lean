@@ -81,13 +81,14 @@ instance : CommGroup (with_division α) where
         ←Localization.mk_one, Localization.mk_eq_mk_iff', mul_comm]
 
 instance monoid_to_semigroup : IsOrderedCancelSemigroup α where
-  __ := inferInstanceAs (IsOrderedCancelMonoid α)
-  mul_le_mul_right := by simp
-  le_of_mul_le_mul_right := by simp
+  mul_le_mul_left' := fun a b hab c => IsOrderedMonoid.mul_le_mul_left a b hab c
+  le_of_mul_le_mul_right' := fun a b c hbc => IsOrderedCancelMonoid.le_of_mul_le_mul_left a b c hbc
+  mul_le_mul_right' := fun a b hab c => IsOrderedMonoid.mul_le_mul_right a b hab c
+  le_of_mul_le_mul_left' := fun a b c hac => IsOrderedCancelMonoid.le_of_mul_le_mul_right a b c hac
 
 instance : IsOrderedSemigroup (with_division α) where
-  mul_le_mul_left := by simp
-  mul_le_mul_right := by simp
+  mul_le_mul_right' := by simp
+  mul_le_mul_left' := by simp
 
 omit [Pow α ℕ+] [PNatPowAssoc α] in
 theorem exists_pos_neg_all_one :
