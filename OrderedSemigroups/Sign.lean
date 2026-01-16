@@ -1,8 +1,7 @@
-module
 
-public import OrderedSemigroups.Basic
-public import Mathlib.Tactic.Order
-public import OrderedSemigroups.PNat
+import OrderedSemigroups.Basic
+import Mathlib.Tactic.Order
+import OrderedSemigroups.PNat
 
 /-!
 # Sign of element in Ordered Semigroup
@@ -199,12 +198,12 @@ theorem neg_lt_pos {a b : α} (neg : is_negative a) (pos : is_positive b) : a < 
 
 lemma pos_right_pos_forall {a b : α} (h : b * a > b) : is_positive a := by
   intro x
-  have : b * a * x > b * x := mul_lt_mul_left h x
+  have : b * a * x > b * x := mul_lt_mul_right' h x
   simpa [mul_assoc]
 
 lemma neg_right_neg_forall {a b : α} (h : b * a < b) : is_negative a := by
   intro x
-  have : b * a * x < b * x := mul_lt_mul_left h x
+  have : b * a * x < b * x := mul_lt_mul_right' h x
   simpa [mul_assoc]
 
 lemma one_right_one_forall {a b : α} (h : b * a = b) : is_one a := by

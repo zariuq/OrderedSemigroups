@@ -1,10 +1,9 @@
-module
 
-public import Mathlib.Algebra.Order.Ring.Star
-public import Mathlib.Analysis.Normed.Field.Instances
-public import Mathlib.Topology.Metrizable.CompletelyMetrizable
-public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
-public import OrderedSemigroups.OrderedGroup.Convergence
+import Mathlib.Algebra.Order.Ring.Star
+import Mathlib.Analysis.Normed.Field.Instances
+import Mathlib.Topology.Metrizable.CompletelyMetrizable
+import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+import OrderedSemigroups.OrderedGroup.Convergence
 
 /-!
 # Approximate

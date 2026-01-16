@@ -1,10 +1,9 @@
-module
 
 import OrderedSemigroups.OrderedGroup.Approximate
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Order.Defs.LinearOrder
-public import OrderedSemigroups.Defs
-public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+import Mathlib.Algebra.Group.Defs
+import Mathlib.Order.Defs.LinearOrder
+import OrderedSemigroups.Defs
+import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
 
 /-!
 # Holder's Theorem for Groups

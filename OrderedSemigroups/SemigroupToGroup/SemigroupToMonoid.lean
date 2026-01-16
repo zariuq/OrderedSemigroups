@@ -1,7 +1,6 @@
-module
 
-public import Mathlib.Algebra.Order.Group.Basic
-public import OrderedSemigroups.Archimedean
+import Mathlib.Algebra.Order.Group.Basic
+import OrderedSemigroups.Archimedean
 
 /-!
 # Semigroup to Monoid

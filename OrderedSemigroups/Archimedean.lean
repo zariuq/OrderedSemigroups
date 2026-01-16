@@ -1,7 +1,6 @@
-module
 
-public import OrderedSemigroups.Sign
-public import Mathlib.Tactic
+import OrderedSemigroups.Sign
+import Mathlib.Tactic
 
 /-!
 # Archimedean Ordered Semigroups and Anomalous Pairs

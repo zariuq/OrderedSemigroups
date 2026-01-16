@@ -1,7 +1,6 @@
-module
 
-public import Mathlib.Algebra.Group.PNatPowAssoc
-public import OrderedSemigroups.Defs
+import Mathlib.Algebra.Group.PNatPowAssoc
+import OrderedSemigroups.Defs
 
 /-!
 # Exponentiation Theorems

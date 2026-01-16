@@ -1,6 +1,5 @@
-module
 
-public import Mathlib.Analysis.Normed.Order.Lattice
+import Mathlib.Analysis.Normed.Order.Lattice
 
 /-!
 # Convergence of a particular sequence

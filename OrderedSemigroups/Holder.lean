@@ -1,6 +1,5 @@
-module
 
-public import OrderedSemigroups.SemigroupToGroup.SemigroupToGroup
+import OrderedSemigroups.SemigroupToGroup.SemigroupToGroup
 
 /-!
 # Holder's Theorem for Semigroups

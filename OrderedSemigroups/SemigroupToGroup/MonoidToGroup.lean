@@ -1,12 +1,11 @@
-module
 
-public import Mathlib.Algebra.Group.Prod
-public import Mathlib.Data.Setoid.Basic
-public import Mathlib.Algebra.Group.Subgroup.Basic
-public import Mathlib.Algebra.Order.Monoid.Basic
-public import Mathlib.Algebra.Order.Group.Basic
-public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
-public import Mathlib.GroupTheory.MonoidLocalization.Order
+import Mathlib.Algebra.Group.Prod
+import Mathlib.Data.Setoid.Basic
+import Mathlib.Algebra.Group.Subgroup.Basic
+import Mathlib.Algebra.Order.Monoid.Basic
+import Mathlib.Algebra.Order.Group.Basic
+import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+import Mathlib.GroupTheory.MonoidLocalization.Order
 
 /-!
 # Monoid to Group

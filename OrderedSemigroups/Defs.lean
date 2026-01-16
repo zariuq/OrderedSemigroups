@@ -1,7 +1,6 @@
-module
 
-public import Mathlib.Algebra.Order.Group.Basic
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
+import Mathlib.Algebra.Order.Group.Basic
+import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
 
 /-!
 # Ordered Semigroups

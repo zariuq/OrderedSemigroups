@@ -1,9 +1,8 @@
-module
 
-public import OrderedSemigroups.Defs
-public import Mathlib.Data.Set.Basic
-public import Mathlib.Algebra.Group.Subsemigroup.Basic
-public import OrderedSemigroups.Archimedean
+import OrderedSemigroups.Defs
+import Mathlib.Data.Set.Basic
+import Mathlib.Algebra.Group.Subsemigroup.Basic
+import OrderedSemigroups.Archimedean
 
 /-!
 # Basic ordered group facts

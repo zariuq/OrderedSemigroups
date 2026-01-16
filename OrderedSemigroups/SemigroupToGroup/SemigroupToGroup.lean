@@ -1,10 +1,9 @@
-module
 
-public import OrderedSemigroups.SemigroupToGroup.SemigroupToMonoid
-public import OrderedSemigroups.SemigroupToGroup.MonoidToGroup
-public import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
-public import OrderedSemigroups.OrderedGroup.Holder
-public import OrderedSemigroups.SemigroupToGroup.Basic
+import OrderedSemigroups.SemigroupToGroup.SemigroupToMonoid
+import OrderedSemigroups.SemigroupToGroup.MonoidToGroup
+import OrderedSemigroups.OrderedGroup.ArchimedeanGroup
+import OrderedSemigroups.OrderedGroup.Holder
+import OrderedSemigroups.SemigroupToGroup.Basic
 
 /-!
 # Semigroup to Group

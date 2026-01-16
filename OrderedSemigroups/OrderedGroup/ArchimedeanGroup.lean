@@ -1,10 +1,9 @@
-module
 
-public import OrderedSemigroups.OrderedGroup.Basic
-public import OrderedSemigroups.Defs
-public import Mathlib.Data.Set.Basic
-public import Mathlib.Algebra.Group.Subsemigroup.Basic
-public import Mathlib.Tactic
+import OrderedSemigroups.OrderedGroup.Basic
+import OrderedSemigroups.Defs
+import Mathlib.Data.Set.Basic
+import Mathlib.Algebra.Group.Subsemigroup.Basic
+import Mathlib.Tactic
 
 /-!
 # Archimedean Groups
