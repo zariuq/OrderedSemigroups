@@ -50,20 +50,24 @@ variable [CommSemigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
   [not_one : Fact (∀x : α, ¬is_one x)]
 
 -- Left multiplication versions of not_pos/not_neg lemmas using commutativity
+omit not_one in
 theorem not_pos_left {a : α} (not_pos : ¬is_positive a) : ∀x : α, a * x ≤ x := by
   intro x
   rw [mul_comm]
   exact not_pos_right not_pos x
 
+omit not_one in
 theorem not_neg_left {a : α} (not_neg : ¬is_negative a) : ∀x : α, a * x ≥ x := by
   intro x
   rw [mul_comm]
   exact not_neg_right not_neg x
 
+omit not_one in
 theorem not_pos_left_not_pos {a b : α} (h : a * b ≤ b) : ¬is_positive a := by
   rw [mul_comm] at h
   exact not_pos_right_not_pos h
 
+omit not_one in
 theorem not_neg_left_not_neg {a b : α} (h : a * b ≥ b) : ¬is_negative a := by
   rw [mul_comm] at h
   exact not_neg_right_not_neg h
