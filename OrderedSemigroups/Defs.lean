@@ -67,3 +67,18 @@ class IsOrderedCancelSemigroup (α : Type*) [Semigroup α] [PartialOrder α]
 
 instance [Semigroup α] [PartialOrder α] [IsOrderedCancelSemigroup α] :
     IsOrderedSemigroup α where
+
+-- Strict monotonicity instances (derived from monotonicity + cancellation)
+instance [Semigroup α] [PartialOrder α] [IsLeftOrderedCancelSemigroup α] :
+    MulLeftStrictMono α where
+  elim a b c bc := by
+    have hle := IsLeftOrderedSemigroup.mul_le_mul_left' b c bc.le a
+    have hne : a * b ≠ a * c := fun h => bc.ne (mul_left_cancel h)
+    exact lt_of_le_of_ne hle hne
+
+instance [Semigroup α] [PartialOrder α] [IsRightOrderedCancelSemigroup α] :
+    MulRightStrictMono α where
+  elim a b c bc := by
+    have hle := IsRightOrderedSemigroup.mul_le_mul_right' b c bc.le a
+    have hne : b * a ≠ c * a := fun h => bc.ne (mul_right_cancel h)
+    exact lt_of_le_of_ne hle hne

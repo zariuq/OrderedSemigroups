@@ -81,9 +81,11 @@ instance : CommGroup (with_division α) where
         ←Localization.mk_one, Localization.mk_eq_mk_iff', mul_comm]
 
 instance monoid_to_semigroup : IsOrderedCancelSemigroup α where
-  mul_le_mul_left' := fun a b hab c => IsOrderedMonoid.mul_le_mul_left a b hab c
+  -- Swap: OrderedSemigroups' mul_le_mul_left' (constant left) = Mathlib's mul_le_mul_right
+  mul_le_mul_left' := fun a b hab c => IsOrderedMonoid.mul_le_mul_right a b hab c
   le_of_mul_le_mul_right' := fun a b c hbc => IsOrderedCancelMonoid.le_of_mul_le_mul_left a b c hbc
-  mul_le_mul_right' := fun a b hab c => IsOrderedMonoid.mul_le_mul_right a b hab c
+  -- Swap: OrderedSemigroups' mul_le_mul_right' (constant right) = Mathlib's mul_le_mul_left
+  mul_le_mul_right' := fun a b hab c => IsOrderedMonoid.mul_le_mul_left a b hab c
   le_of_mul_le_mul_left' := fun a b c hac => IsOrderedCancelMonoid.le_of_mul_le_mul_right a b c hac
 
 instance : IsOrderedSemigroup (with_division α) where

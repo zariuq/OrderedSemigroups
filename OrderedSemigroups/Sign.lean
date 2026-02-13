@@ -187,6 +187,22 @@ end OrderedSemigroup
 section LinearOrderedCancelSemigroup
 variable [Semigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
 
+lemma mul_lt_mul_right' {a b : α} (h : a < b) (c : α) : a * c < b * c := by
+  have hle : a * c ≤ b * c := mul_le_mul_left h.le c
+  have hne : a * c ≠ b * c := by
+    intro hEq
+    have : a = b := mul_right_cancel hEq
+    exact (ne_of_lt h) this
+  exact lt_of_le_of_ne hle hne
+
+lemma mul_lt_mul_left' {a b : α} (h : a < b) (c : α) : c * a < c * b := by
+  have hle : c * a ≤ c * b := mul_le_mul_right h.le c
+  have hne : c * a ≠ c * b := by
+    intro hEq
+    have : a = b := mul_left_cancel hEq
+    exact (ne_of_lt h) this
+  exact lt_of_le_of_ne hle hne
+
 theorem gt_one_pos {a b : α} (one : is_one a) (h : a < b) : is_positive b :=
   fun x ↦ lt_of_eq_of_lt (id (Eq.symm (one x))) (mul_lt_mul_right' h x)
 

@@ -1,5 +1,6 @@
 
 import Mathlib.Analysis.Normed.Order.Lattice
+import Mathlib.Algebra.Order.Interval.Set.Group
 
 /-!
 # Convergence of a particular sequence

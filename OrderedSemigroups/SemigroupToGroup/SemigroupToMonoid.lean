@@ -138,16 +138,9 @@ instance : MulRightMono (WithOne α) where
     · exact IsRightOrderedSemigroup.mul_le_mul_right' y z y_le_z x
 
 instance : IsOrderedMonoid (WithOne α) where
+  -- Mathlib's mul_le_mul_left needs: a ≤ b → a * c ≤ b * c (constant on right)
+  -- OrderedSemigroups' mul_le_mul_right' provides: a ≤ b → a * c ≤ b * c
   mul_le_mul_left a b hab c := by
-    induction' c with c
-    <;> induction' a with a
-    <;> induction' b with b
-    <;> try simp
-    <;> try simpa
-    · exact not_neg_right (not_neg_iff.mpr hab) c
-    · exact not_pos_right (not_pos_right_not_pos hab) c
-    · exact IsLeftOrderedSemigroup.mul_le_mul_left' a b hab c
-  mul_le_mul_right a b hab c := by
     induction' c with c
     <;> induction' a with a
     <;> induction' b with b
@@ -156,6 +149,17 @@ instance : IsOrderedMonoid (WithOne α) where
     · exact not_neg_left (not_neg_iff.mpr hab) c
     · exact not_pos_left (not_pos_left_not_pos hab) c
     · exact IsRightOrderedSemigroup.mul_le_mul_right' a b hab c
+  -- Mathlib's mul_le_mul_right needs: a ≤ b → c * a ≤ c * b (constant on left)
+  -- OrderedSemigroups' mul_le_mul_left' provides: a ≤ b → c * a ≤ c * b
+  mul_le_mul_right a b hab c := by
+    induction' c with c
+    <;> induction' a with a
+    <;> induction' b with b
+    <;> try simp
+    <;> try simpa
+    · exact not_neg_right (not_neg_iff.mpr hab) c
+    · exact not_pos_right (not_pos_right_not_pos hab) c
+    · exact IsLeftOrderedSemigroup.mul_le_mul_left' a b hab c
 
 noncomputable instance withOne_linearOrder : LinearOrder (WithOne α) where
   le_total := by
@@ -180,7 +184,9 @@ instance withOne_orderedCancelMonoid : IsOrderedCancelMonoid (WithOne α) where
     · exact IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right' x y z xy_le_xz
 
 instance : IsLeftOrderedSemigroup (WithOne α) where
-  mul_le_mul_left' a b hab c := IsOrderedMonoid.mul_le_mul_left a b hab c
+  -- IsLeftOrderedSemigroup.mul_le_mul_left' needs: a ≤ b → c * a ≤ c * b
+  -- IsOrderedMonoid.mul_le_mul_right provides: a ≤ b → c * a ≤ c * b
+  mul_le_mul_left' a b hab c := IsOrderedMonoid.mul_le_mul_right a b hab c
 
 variable [Pow α ℕ+] [PNatPowAssoc α]
   [Pow (WithOne α) ℕ+] [PNatPowAssoc (WithOne α)]
@@ -244,8 +250,10 @@ noncomputable instance has_one_commMonoid : CommMonoid α where
   mul_one a := one_right has_one.out.choose_spec a
 
 instance has_one_orderedCancelMonoid : IsOrderedCancelMonoid α where
-  mul_le_mul_left a b hab c := IsLeftOrderedSemigroup.mul_le_mul_left' a b hab c
-  mul_le_mul_right a b hab c := IsRightOrderedSemigroup.mul_le_mul_right' a b hab c
+  -- Swap: Mathlib's mul_le_mul_left needs constant on right, OrderedSemigroups' mul_le_mul_right' provides that
+  mul_le_mul_left a b hab c := IsRightOrderedSemigroup.mul_le_mul_right' a b hab c
+  -- Swap: Mathlib's mul_le_mul_right needs constant on left, OrderedSemigroups' mul_le_mul_left' provides that
+  mul_le_mul_right a b hab c := IsLeftOrderedSemigroup.mul_le_mul_left' a b hab c
   le_of_mul_le_mul_left a b c habc := by
     -- habc : a * b ≤ a * c, want: b ≤ c
     -- IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right' : ∀ a b c, a * b ≤ a * c → b ≤ c

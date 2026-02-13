@@ -87,8 +87,8 @@ theorem qplus1_min_gt (g : α) (p : ℕ) {t : ℤ} (ht : g^p < f^t) : q f g p + 
   have ⟨fqp_lt_gt, _⟩ := q_spec f g p
   by_contra h
   simp at h
-  have : t ≤ q f g p := (Int.add_le_add_iff_right 1).mp h
-  have : f^t ≤ f^(q f g p) := pos_exp_le_le f_pos.out this
+  -- After simp, h : t ≤ q f g p (since ¬(q+1 ≤ t) → t < q+1 → t ≤ q for integers)
+  have : f^t ≤ f^(q f g p) := pos_exp_le_le f_pos.out h
   have : g^p < f^(q f g p) := lt_of_le_of_lt' this ht
   have : g^p < g^p := lt_of_le_of_lt' fqp_lt_gt this
   order
@@ -123,9 +123,8 @@ theorem q_convergence (g : α) :
   simp at this
   ring_nf at this
   have diff_le_1: q f g (m+n) - q f g m - q f g n ≤ 1 := by
-    simp
-    rw [add_assoc, add_comm (q f g n), ←add_assoc]
-    trivial
+    -- From this : q f g (m + n) < 2 + q f g m + q f g n, derive the inequality
+    omega
   have diff_ge_0 : 0 ≤ q f g (m+n) - q f g m - q f g n := by
     simp
     have := Int.sub_le_sub_right qmplusqn_le_qmplusn (q f g m)
@@ -293,8 +292,10 @@ theorem f_maps_one_φ : (φ f) f = (1 : ℝ) := by
     simp
     use 1
     intro b one_le_b
-    simp [this]
-    field_simp
+    simp only [this]
+    -- Goal: (b : ℝ) / (b : ℝ) = 1, where b ≥ 1
+    have hb : (b : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.one_le_iff_ne_zero.mp one_le_b)
+    exact div_self hb
   have eventually_one : (fun p ↦ ((q f f p) : ℝ)/(p : ℝ)) =ᶠ[Filter.atTop] 1 := this
   have : Filter.Tendsto (fun p ↦ ((q f f p) : ℝ)/(p : ℝ)) Filter.atTop (nhds 1) := by
     apply Filter.Tendsto.congr' (f₁ := 1)
