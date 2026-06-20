@@ -35,11 +35,12 @@ class IsLeftOrderedCancelSemigroup (α : Type*) [Semigroup α] [PartialOrder α]
   le_of_mul_le_mul_right' : ∀ a b c : α, a * b ≤ a * c → b ≤ c
 
 instance [Semigroup α] [PartialOrder α] [IsLeftOrderedCancelSemigroup α] :
-    MulLeftReflectLE α := ⟨IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right'⟩
+    MulLeftReflectLE α where
+  le_of_mul_le_mul_left' h := IsLeftOrderedCancelSemigroup.le_of_mul_le_mul_right' _ _ _ h
 
 instance [Semigroup α] [PartialOrder α] [IsLeftOrderedCancelSemigroup α] :
     MulLeftReflectLT α where
-  elim := contravariant_lt_of_contravariant_le α α _ ContravariantClass.elim
+  elim := contravariant_lt_of_contravariant_le α α _ fun _ ↦ MulLeftReflectLE.le_of_mul_le_mul_left'
 
 instance [Semigroup α] [PartialOrder α] [IsLeftOrderedCancelSemigroup α] :
     IsLeftCancelMul α where
@@ -51,11 +52,12 @@ class IsRightOrderedCancelSemigroup (α : Type*) [Semigroup α] [PartialOrder α
   le_of_mul_le_mul_left' : ∀ a b c : α, b * a ≤ c * a → b ≤ c
 
 instance [Semigroup α] [PartialOrder α] [IsRightOrderedCancelSemigroup α] :
-    MulRightReflectLE α := ⟨IsRightOrderedCancelSemigroup.le_of_mul_le_mul_left'⟩
+    MulRightReflectLE α where
+  le_of_mul_le_mul_right' h := IsRightOrderedCancelSemigroup.le_of_mul_le_mul_left' _ _ _ h
 
 instance [Semigroup α] [PartialOrder α] [IsRightOrderedCancelSemigroup α] :
     MulRightReflectLT α where
-  elim := contravariant_lt_of_contravariant_le α α _ ContravariantClass.elim
+  elim := contravariant_lt_of_contravariant_le α α _ fun _ ↦ MulRightReflectLE.le_of_mul_le_mul_right'
 
 instance [Semigroup α] [PartialOrder α] [IsRightOrderedCancelSemigroup α] :
     IsRightCancelMul α where

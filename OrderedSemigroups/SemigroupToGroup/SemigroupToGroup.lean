@@ -54,8 +54,7 @@ theorem to_not_anom_monoid (not_anomalous : ¬has_anomalous_pair (α := α)) :
     · simp only [not_exists, not_forall, gt_iff_lt,
         not_or, not_and, not_lt] at not_anomalous ⊢
       unfold_projs at not_anomalous ⊢
-      simp only [monoid_pnat_pow_eq_pnat_pow, Nat.zero_eq, Nat.lt_eq,
-        Nat.add_eq, PNat.mk_coe] at not_anomalous
+      simp only [monoid_pnat_pow_eq_pnat_pow, Nat.lt_eq] at not_anomalous
       exact not_anomalous
     · set whole : Subsemigroup α := {
         carrier := Set.univ
