@@ -22,7 +22,6 @@ section LeftOrdered
 
 variable [Group α] [PartialOrder α] [IsLeftOrderedSemigroup α]
 
-@[expose]
 def archimedean_group (α : Type u) [Group α] [PartialOrder α]
   [IsLeftOrderedSemigroup α] := ∀(g h : α), g ≠ 1 → ∃z : ℤ, g^z > h
 

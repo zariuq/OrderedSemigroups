@@ -21,7 +21,7 @@ section LinearOrderedCancelSemigroup
 variable [Semigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
   [Pow α ℕ+] [PNatPowAssoc α]
 
-@[expose, reducible]
+@[reducible]
 def not_anom_to_comm (not_anomalous : ¬has_anomalous_pair (α := α)) :
     CommSemigroup α where
   mul_comm a b := not_anomalous_pair_commutative not_anomalous a b

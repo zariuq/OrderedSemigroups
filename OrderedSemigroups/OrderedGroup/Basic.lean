@@ -132,14 +132,14 @@ theorem pos_lt_exp_lt {f : α} (f_pos : 1 < f) {a b : ℤ} (f_lt : f^a < f^b) : 
       order
   exact lt_neg_add_iff_lt.mp this
 
-instance PositiveCone (α : Type u) [Group α] [PartialOrder α]
+def PositiveCone (α : Type u) [Group α] [PartialOrder α]
     [IsLeftOrderedSemigroup α] : Subsemigroup α where
   carrier := {x : α | 1 < x}
   mul_mem' := by
     simp
     exact fun {a b} a_1 a_2 ↦ one_lt_mul' a_1 a_2
 
-instance NegativeCone (α : Type u) [Group α] [PartialOrder α]
+def NegativeCone (α : Type u) [Group α] [PartialOrder α]
     [IsLeftOrderedSemigroup α] : Subsemigroup α where
   carrier := {x : α | x < 1}
   mul_mem' := by
@@ -158,7 +158,6 @@ theorem pos_neg_disjoint :
   · intro x_in_empty
     contradiction
 
-@[expose]
 def normal_semigroup {α : Type u} [Group α] (x : Subsemigroup α) :=
     ∀s : x, ∀g : α, g * s * g⁻¹ ∈ x
 

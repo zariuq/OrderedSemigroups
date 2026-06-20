@@ -69,7 +69,6 @@ noncomputable def q (g : α) (p : ℕ) : ℤ := (approximate f g p).choose
 theorem q_spec (g : α) (p : ℕ) :
   f^(q f g p) ≤ g^p ∧ g^p < f^((q f g p)+1) := by
     have := (approximate f g p).choose_spec
-    simp at this
     simp [q]
     tauto
 
