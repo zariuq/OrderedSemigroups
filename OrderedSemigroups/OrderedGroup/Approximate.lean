@@ -309,13 +309,9 @@ theorem injective_φ : Function.Injective (φ f) := by
   by_contra h
   obtain ⟨n, hn⟩ := arch.out a f h
   have zero_le_one : (0 : ℝ) ≥ 1 := by
-    calc (0 : ℝ)
-    _ = (φ f) a := a_image_one.symm
-    _ = ((φ f) a)^n := by
-      simp [a_image_one]
-    _ = (φ f) (a ^ n) := (MonoidHom.map_zpow (φ f) a n).symm
-    _ ≥ (φ f) f := order_preserving_φ f hn.le
-    _ = (1 : ℝ) := f_maps_one_φ f
+    have key : (φ f) f ≤ (φ f) (a ^ n) := order_preserving_φ f hn.le
+    rw [MonoidHom.map_zpow, a_image_one, one_zpow, f_maps_one_φ] at key
+    exact key
   have zero_lt_one : (0 : ℝ) < 1 := Real.zero_lt_one
   order
 

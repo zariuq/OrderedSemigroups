@@ -63,22 +63,22 @@ noncomputable def iso_over_one : α ≃*o (over_one α) where
     simp [MonoidHom.mrangeRestrict, ←Localization.mk_one_eq_monoidOf_mk,
       Localization.mk_le_mk]
 
-instance : CommGroup (with_division α) where
-  __ := inferInstanceAs (CommMonoid (with_division α))
-  inv x := Localization.liftOn x
+instance : CommGroup (with_division α) :=
+  { (inferInstance : CommMonoid (with_division α)) with
+    inv := fun x => Localization.liftOn x
           (fun m s => Localization.mk s ⟨m, by simp⟩)
           (by
             intro a c b d h
             simp [Localization.mk_eq_mk_iff',
               Localization.r_iff_exists] at h ⊢
             simp [mul_comm c, mul_comm a, h])
-  inv_mul_cancel := by
-    intro x
-    unfold with_division at x
-    induction x with
-    | H y =>
-      simp [Localization.liftOn_mk, Localization.mk_mul,
-        ←Localization.mk_one, Localization.mk_eq_mk_iff', mul_comm]
+    inv_mul_cancel := by
+      intro x
+      unfold with_division at x
+      induction x with
+      | H y =>
+        simp [Localization.liftOn_mk, Localization.mk_mul,
+          ←Localization.mk_one, Localization.mk_eq_mk_iff', mul_comm] }
 
 instance monoid_to_semigroup : IsOrderedCancelSemigroup α where
   -- Swap: OrderedSemigroups' mul_le_mul_left' (constant left) = Mathlib's mul_le_mul_right

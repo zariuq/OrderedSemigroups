@@ -21,7 +21,7 @@ section LinearOrderedCancelSemigroup
 variable [Semigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
   [Pow α ℕ+] [PNatPowAssoc α]
 
-@[expose]
+@[expose, reducible]
 def not_anom_to_comm (not_anomalous : ¬has_anomalous_pair (α := α)) :
     CommSemigroup α where
   mul_comm a b := not_anomalous_pair_commutative not_anomalous a b
@@ -109,9 +109,11 @@ theorem compose_subsemigroup {G M : Type u} [Monoid G] [Monoid M]
       have inv := (Subtype.coe_prop img).choose_spec
       convert inv
       <;> simp [img, hyx]
-    map_mul' := by
-      simp [α_to_group]
-    map_le_map_iff' := by simp [α_to_group]
+    map_mul' := by intro x y; exact Subtype.ext (map_mul α_to_group x y)
+    map_le_map_iff' := by
+      intro a b
+      show (↑(f ↑(g a)) : G) ≤ ↑(f ↑(g b)) ↔ a ≤ b
+      rw [Subtype.coe_le_coe, map_le_map_iff, Subtype.coe_le_coe, map_le_map_iff]
   }
 
 omit [IsOrderedCancelSemigroup α] [Pow α ℕ+] [PNatPowAssoc α] in
@@ -151,9 +153,11 @@ theorem compose_subsemigroup' {G : Type*} {M : Type*} [Group G] [Group M]
       have inv := (Subtype.coe_prop img).choose_spec
       convert inv
       <;> simp [img, hyx]
-    map_mul' := by
-      simp [α_to_group]
-    map_le_map_iff' := by simp [α_to_group]
+    map_mul' := by intro x y; exact Subtype.ext (map_mul α_to_group x y)
+    map_le_map_iff' := by
+      intro a b
+      show (↑(f ↑(g a)) : G) ≤ ↑(f ↑(g b)) ↔ a ≤ b
+      rw [Subtype.coe_le_coe, map_le_map_iff, Subtype.coe_le_coe, map_le_map_iff]
   }
 
 /--

@@ -41,7 +41,7 @@ noncomputable def iso_without_one : α ≃* without_one α where
   invFun x := WithOne.unone x.prop
   left_inv := by simp [Function.LeftInverse]
   right_inv := by simp [Function.RightInverse, Function.LeftInverse]
-  map_mul' := by simp
+  map_mul' := by intro x y; rfl
 
 end Semigroup
 
@@ -243,11 +243,11 @@ section LinearOrderedCancelCommSemigroup
 variable [CommSemigroup α] [LinearOrder α] [IsOrderedCancelSemigroup α]
     [has_one : Fact (∃one : α, ∀x : α, one * x = x)]
 
-noncomputable instance has_one_commMonoid : CommMonoid α where
-  __ := inferInstanceAs (IsOrderedCancelSemigroup α)
-  one := has_one.out.choose
-  one_mul := has_one.out.choose_spec
-  mul_one a := one_right has_one.out.choose_spec a
+noncomputable instance has_one_commMonoid : CommMonoid α :=
+  { (inferInstance : CommSemigroup α) with
+    one := has_one.out.choose
+    one_mul := has_one.out.choose_spec
+    mul_one := fun a => one_right has_one.out.choose_spec a }
 
 instance has_one_orderedCancelMonoid : IsOrderedCancelMonoid α where
   -- Swap: Mathlib's mul_le_mul_left needs constant on right, OrderedSemigroups' mul_le_mul_right' provides that

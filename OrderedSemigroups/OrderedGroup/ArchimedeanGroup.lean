@@ -137,6 +137,7 @@ theorem left_arch_ordered (arch : archimedean_group α) :
     simp at this
     order
 
+@[reducible]
 def left_arch_ordered_group (arch : archimedean_group α) :
     IsRightOrderedSemigroup α where
   mul_le_mul_right' := by exact fun a b a_1 c ↦ left_arch_ordered arch a b a_1 c

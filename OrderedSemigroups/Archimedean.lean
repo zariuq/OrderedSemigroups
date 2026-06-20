@@ -234,7 +234,7 @@ theorem neg_not_archimedean_anomalous_pair' {a b : α} (neg_a : is_negative a) (
 /-- If a linear ordered cancel semigroup is not Archimedean, then it has an anomalous pair. -/
 theorem non_archimedean_anomalous_pair (non_arch : ¬is_archimedean (α := α)) : has_anomalous_pair (α := α) := by
   unfold is_archimedean at non_arch
-  push_neg at non_arch
+  push Not at non_arch
   rcases non_arch with ⟨a, b, not_one_a, not_one_b, same_sign_ab, hab⟩
   rcases pos_neg_or_one a with pos_a | neg_a | one_a
   <;> rcases pos_neg_or_one b with pos_b | neg_b | one_b
@@ -406,6 +406,7 @@ theorem not_anomalous_comm_and_arch (not_anomalous : ¬has_anomalous_pair (α :=
   · exact fun a b ↦ not_anomalous_pair_commutative not_anomalous a b
   · exact not_anomalous_arch not_anomalous
 
+@[reducible]
 def not_anomalous_comm_semigroup (not_anomalous : ¬has_anomalous_pair (α := α)) :
     CommSemigroup α where
   mul_comm a b := not_anomalous_pair_commutative not_anomalous a b

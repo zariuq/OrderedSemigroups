@@ -26,9 +26,8 @@ instance monoid_pnat_pow {α : Type*} [Monoid α] : Pow α ℕ+ where
 instance {α : Type*} [Monoid α] : PNatPowAssoc α where
   ppow_add := by
     intro k n x
-    unfold_projs
-    simp [pow_add]
-    rfl
+    show x ^ ((k + n : ℕ+) : ℕ) = x ^ (k : ℕ) * x ^ (n : ℕ)
+    rw [PNat.add_coe, pow_add]
   ppow_one := by
     unfold_projs
     simp
